@@ -128,6 +128,14 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,
+
+    // In your gatsby-config.js
+    siteMetadata: {
+    // If you didn't use the resolveSiteUrl option this needs to be set
+    siteUrl: `https://blog.wikoga.win`,
+    },
+    plugins: [`gatsby-plugin-sitemap`],
+
     {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
