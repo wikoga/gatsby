@@ -1,6 +1,6 @@
 ---
 title: HestiaCP no ARM
-date: "2021-11-02T23:10:03.284Z"
+date: "2021-11-03T01:20:25.284Z"
 description: "A Oracle oferece gratuitamente um servidor com 4 núcleos e 24 gb de ram, o único problema é que a arquitetura arm não tem muitas opções de LEMP/LAMP stack. A solução? HestiaCP um painel de controle seguro, grátis e bem eficiente, basta seguir as instruções pra instalar na sua Oracle Cloud"
 ---
 Como a Oracle oferece no nível "always free" 4 núcleos do processador arm e 24gb de ram para o mesmo, as instâncias ampere são bbem úteis pra quem quer ter uma hospedagem parruda sem custos extras.
