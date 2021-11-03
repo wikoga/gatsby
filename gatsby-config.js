@@ -10,7 +10,6 @@ module.exports = {
     social: {
       twitter: `wikogablog`,
     },
-    const siteUrl = process.env.URL || `https://fallback.net`,
   },
   plugins: [
     `gatsby-plugin-image`,
