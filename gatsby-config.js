@@ -129,50 +129,51 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,
     {
-      resolve: "gatsby-plugin-sitemap",
+      resolve: `gatsby-plugin-sitemap`,
       options: {
-        query: `
-        {
+        query: `{
+          site {
+            siteMetadata {
+              siteUrlNoSlash
+            }
+          }
           allSitePage {
-            nodes {
-              path
-            }
-          }
-          allWpContentNode(filter: {nodeType: {in: ["Post", "Page"]}}) {
-            nodes {
-              ... on WpPost {
-                uri
-                modifiedGmt
-              }
-              ... on WpPage {
-                uri
-                modifiedGmt
+            edges {
+              node {
+                path
               }
             }
           }
-        }
-      `,
-        resolveSiteUrl: () => siteUrl,
-        resolvePages: ({
-          allSitePage: { nodes: allPages },
-          allWpContentNode: { nodes: allWpNodes },
-        }) => {
-          const wpNodeMap = allWpNodes.reduce((acc, node) => {
-            const { uri } = node
-            acc[uri] = node
-
-            return acc
-          }, {})
-
-          return allPages.map(page => {
-            return { ...page, ...wpNodeMap[page.path] }
+          allMarkdownRemark {
+            edges {
+              node {
+                fields {
+                  slug
+                }
+              }
+            }
+          }
+        }`,
+        serialize: ({ site, allSitePage, allMarkdownRemark }) => {
+          let pages = []
+          allSitePage.edges.map(edge => {
+            pages.push({
+              url: site.siteMetadata.siteUrlNoSlash + edge.node.path,
+              changefreq: `daily`,
+              priority: 0.7,
+            })
           })
-        },
-        serialize: ({ path, modifiedGmt }) => {
-          return {
-            url: path,
-            lastmod: modifiedGmt,
-          }
+          allMarkdownRemark.edges.map(edge => {
+            pages.push({
+              url: `${site.siteMetadata.siteUrlNoSlash}/${
+                edge.node.fields.slug
+              }`,
+              changefreq: `daily`,
+              priority: 0.7,
+            })
+          })
+ 
+          return pages
         },
       },
     },
