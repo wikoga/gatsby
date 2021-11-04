@@ -129,55 +129,6 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-advanced-sitemap`,
     {
-      resolve: `gatsby-plugin-sitemap`,
-      options: {
-        query: `{
-          site {
-            siteMetadata {
-              siteUrlNoSlash
-            }
-          }
-          allSitePage {
-            edges {
-              node {
-                path
-              }
-            }
-          }
-          allMarkdownRemark {
-            edges {
-              node {
-                fields {
-                  slug
-                }
-              }
-            }
-          }
-        }`,
-        serialize: ({ site, allSitePage, allMarkdownRemark }) => {
-          let pages = []
-          allSitePage.edges.map(edge => {
-            pages.push({
-              url: site.siteMetadata.siteUrlNoSlash + edge.node.path,
-              changefreq: `daily`,
-              priority: 0.7,
-            })
-          })
-          allMarkdownRemark.edges.map(edge => {
-            pages.push({
-              url: `${site.siteMetadata.siteUrlNoSlash}/${
-                edge.node.fields.slug
-              }`,
-              changefreq: `daily`,
-              priority: 0.7,
-            })
-          })
- 
-          return pages
-        },
-      },
-    },
-    {
       resolve: `gatsby-plugin-google-gtag`,
       options: {
         // You can add multiple tracking ids and a pageview event will be fired for all of them.
